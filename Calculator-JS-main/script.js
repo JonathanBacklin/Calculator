@@ -1,18 +1,13 @@
-
 let display = document.getElementById("display")
 let value1 = [];
-let resultat;
-let prevNumber = 0;
-let currentNumber = 0;
+value1[0] = 0;
+value1[1] = 0;
 
 // för att ta bort nollan innan talen, nästlad if statement,
 
+let keys = document.getElementsByClassName('key');
 
-document.body.onclick = function(anEvent) {
-        
-  let keys = anEvent.target.id;
-
-  function font() {
+  function font() { 
     for (let index = 0; index < display.value.length; index++) {
       if(display.value.length === 14) {
         display.style.fontSize = "24px"
@@ -21,82 +16,82 @@ document.body.onclick = function(anEvent) {
         display.style.fontSize = "20px"
       }
       else if (display.value.length === 22) {
-        display.style.fontSize = "16px"
+        display.style.fontSize = "18px"
       }
-      else if (display.value.length === 26) {
+      else if(display.value.length === 28) {
+        display.style.fontSize = "15px"
+      }
+      else if(display.value.length === 32) {
         display.style.fontSize = "12px"
       }
-      else if (display.value.length === 36) {
-        display.style.fontSize = "10px"
-      }
-      else if (display.value.length === 42) {
-        display.style.fontSize = "8px"
+      else {
+        return
       }
     }
   }
 
-  console.log(keys) 
- 
-    if(keys === 'clear') {
+  function dot() {
+    if(display.value.includes('.')) {
+      return
+    }
+
+  else {
+    display.type = 'text';
+    display.value += '.';
+    UpdateDisplay(display.value);
+  }
+}
+
+  function UpdateDisplay(num = '0') {
+    display.value = num;
+    font();
+  }
+  function Handler(btn) {
+    //push to store numbers,else if = equal, else switch,statement for operators add,multiply etc. !isNaN(parseint(keys)) call Numberpress function
+    if(btn.id === 'clear') {
       display.value = '0';
       display.style.fontSize = '28px';
-      
     }
-    else if(keys === 'percent') {
-      display.value *=0.01;
-      font();
+    else if(btn.id === 'negate') {
+      display.value = -display.value;
     }
-    else if(keys === 'negate') {
-      display.value *= -1;
+    else if(btn.id === 'percent') {
+      display.value *= 0.01;
     }
-    else if(keys === 'divide') {
-      
-      display.value = '';
+    else if(btn.id === 'dot') {
+      dot();
     }
-    else if(keys === 'multiply') {
-      
-      display.value = '';
-      
-    }
-    else if(keys === 'subtract') {
-      
-      display.value = '';
-    
-    }
-    else if(keys === 'add') {
-      
-      display.value = '';
-      
-    }
-    else if(keys === 'dot') {
-       if(display.value.includes('.')){
-         return;
-       }
-       else{
-        display.type = 'text';
-        display.value +='.';
-        display.value;
-       }
-      }
-   
-    else if(keys === 'equal') {
-      display.value = parseInt(value1[0]);
-      console.log(value1[0])
-    }
-
-    else if(display.value === '0')  {
-      display.value=keys;
-      
+    else if(!isNaN(btn.id)) {
+      NumberPress(btn.innerHTML);
     }
     else {
-      display.value+=keys;
-      value1 = parseInt(display.value);
-      currentNumber = display.value;
-      console.log(currentNumber)
-      font(); 
+      value1[0] = display.value; //nummer
+      value1[1] = btn.innerHTML; // operator
+      console.log('operators')
+      console.log(value1[0],value1[1]);
     }
-};
- 
+  }
 
- // lägg till font grejen, uppdatera statements, 
+  function NumberPress(num){
+    if(display.value === '0') {
+      display.value=num;
+    }
+  /*  else if(btn.id === 'equal') {
+        switch {
+
+          case 'add' 
+        }
+        } */
+    
+    else {
+      display.value+=num;
+
+    }
+    UpdateDisplay(display.value);
+  //append them update currentnumber and display.
+  };
  
+  for (let i = 0; i < keys.length; i++) {
+    keys[i].addEventListener('click', () => Handler(keys[i]))
+    
+  }
