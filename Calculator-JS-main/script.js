@@ -1,15 +1,16 @@
-let display = document.getElementById("display")
-let value1 = [];
-value1[0] = 0;
-value1[1] = 0;
-// för att ta bort nollan innan talen, nästlad if statement,
+let display = document.getElementById("display")  // takes id from html and declares a variable called display.
+display.readOnly = true
+const maxNum = 24; // dont want unlimited numbers 
+let value1 = [];  // creates an empty array.
+value1[0] = 0; // takes that arrays first position and sets it to 0
+value1[1] = 0; 
+display.type = 'text' // enables me to do 1/0 = infinity, it doesnt break the code so i can have it here.
 
+let keys = document.getElementsByClassName('key'); //simple declaration for the variable key to get all the elements with the classname keys from html
 
-let keys = document.getElementsByClassName('key');
-
-  function font() { 
+  function font() { // to change fontsize.
     for (let index = 0; index < display.value.length; index++) {
-      if(display.value.length === 15) {
+      if(display.value.length === 15) { // 
         display.style.fontSize = "26px"
       }
       else if (display.value.length === 17) {
@@ -30,14 +31,13 @@ let keys = document.getElementsByClassName('key');
     }
   }
 
-  function dot() {
-    if(display.value.includes('.')) {
+  function dot() { // simple function for the dot key 
+    if(display.value.includes('.')) { // if there already includes a dot in display value u can't add another one.
       return
     }
 
   else {
-    display.type = 'text';
-    display.value += '.';
+    display.value += '.'; // adds the dot to display.value
     UpdateDisplay(display.value);
   }
 }
@@ -56,7 +56,7 @@ let keys = document.getElementsByClassName('key');
       display.value = -display.value;
     }
     else if(btn.id === 'percent') {
-      display.value *= 0.01;
+      display.value *= 0.01; // takes display.value * 0.01 which is the same as /100 to get %
       font();
     }
     else if(btn.id === 'dot') {
@@ -73,6 +73,7 @@ let keys = document.getElementsByClassName('key');
       else if (btn.id ==='equal'){
         console.log(value1)
         value1[1]=display.value;
+        console.log(value1[2])
         switch(value1[2]){
           case 'add':
             value1[0]*= 1;
@@ -103,8 +104,9 @@ let keys = document.getElementsByClassName('key');
               return
         }
 
+       
         display.value=value1[0];
-
+        
       }
 
 
@@ -121,7 +123,10 @@ let keys = document.getElementsByClassName('key');
       display.value=num;
     }
     
-    
+    else if (display.value.length >= maxNum) {
+      alert("Too many numbers on the screen sorry :( ")
+      return
+    }
     else {
       display.value+=num;
       
