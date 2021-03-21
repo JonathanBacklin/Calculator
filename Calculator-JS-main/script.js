@@ -13,18 +13,19 @@ let keys = document.getElementsByClassName('key'); //simple declaration for the 
       if(display.value.length === 15) { // 
         display.style.fontSize = "26px"
       }
-      else if (display.value.length === 17) {
+      else if (display.value.length >= 17) {
         display.style.fontSize = "22px"
       }
-      else if (display.value.length === 19) {
+      else if (display.value.length >= 19) {
         display.style.fontSize = "20px"
       }
-      else if(display.value.length === 21) {
-        display.style.fontSize = "18px"
+      else if(display.value.length >= 21) {
+        display.style.fontSize = "16px"
       }
-      else if(display.value.length === 24) {
-        display.style.fontSize = "17px"
+      else if(display.value.length >= 24) {
+        display.style.fontSize = "10px"
       }
+      
       else {
         return
       }
@@ -71,6 +72,7 @@ let keys = document.getElementsByClassName('key'); //simple declaration for the 
       value1[2] = btn.id;
       }
       else if (btn.id ==='equal'){
+        
         console.log(value1)
         value1[1]=display.value;
         console.log(value1[2])
@@ -79,39 +81,38 @@ let keys = document.getElementsByClassName('key'); //simple declaration for the 
             value1[0]*= 1;
             value1[1]*= 1;
             value1[0]+=value1[1];
-            font();
+            
             break
 
           case 'subtract':
               value1[0]-=value1[1];
-              font();
+              
               break
 
           case 'multiply':
               value1[0]= value1[0]*value1[1];
-              font();
               break
 
           case 'divide':
             
               value1[0]= value1[0]/value1[1];
-              font();
+              
               break
 
           default:
             console.log('return')
-            font();
+            
               return
         }
 
-       
-        display.value=value1[0];
         
+        display.value=value1[0];
+        font();
       }
 
 
       else{
-
+        font();
           display.value += keys;
       }
 
@@ -121,6 +122,7 @@ let keys = document.getElementsByClassName('key'); //simple declaration for the 
   function NumberPress(num){
     if(display.value === '0') {
       display.value=num;
+      font();
     }
     
     else if (display.value.length >= maxNum) {
@@ -128,11 +130,13 @@ let keys = document.getElementsByClassName('key'); //simple declaration for the 
       return
     }
     else {
+      font();
       display.value+=num;
       
     
     UpdateDisplay(display.value);
     }
+    font();
   };
  
   for (let i = 0; i < keys.length; i++) {
