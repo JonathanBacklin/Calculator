@@ -2,27 +2,27 @@ let display = document.getElementById("display")
 let value1 = [];
 value1[0] = 0;
 value1[1] = 0;
-
 // för att ta bort nollan innan talen, nästlad if statement,
+
 
 let keys = document.getElementsByClassName('key');
 
   function font() { 
     for (let index = 0; index < display.value.length; index++) {
-      if(display.value.length === 14) {
-        display.style.fontSize = "24px"
+      if(display.value.length === 15) {
+        display.style.fontSize = "26px"
       }
-      else if (display.value.length === 18) {
+      else if (display.value.length === 17) {
+        display.style.fontSize = "22px"
+      }
+      else if (display.value.length === 19) {
         display.style.fontSize = "20px"
       }
-      else if (display.value.length === 22) {
+      else if(display.value.length === 21) {
         display.style.fontSize = "18px"
       }
-      else if(display.value.length === 28) {
-        display.style.fontSize = "15px"
-      }
-      else if(display.value.length === 32) {
-        display.style.fontSize = "12px"
+      else if(display.value.length === 24) {
+        display.style.fontSize = "17px"
       }
       else {
         return
@@ -57,38 +57,77 @@ let keys = document.getElementsByClassName('key');
     }
     else if(btn.id === 'percent') {
       display.value *= 0.01;
+      font();
     }
     else if(btn.id === 'dot') {
       dot();
     }
     else if(!isNaN(btn.id)) {
-      NumberPress(btn.innerHTML);
+      NumberPress(btn.id);
     }
-    else {
-      value1[0] = display.value; //nummer
-      value1[1] = btn.innerHTML; // operator
-      console.log('operators')
-      console.log(value1[0],value1[1]);
-    }
-  }
+    else if(btn.id === 'add' || btn.id === 'subtract' || btn.id === 'multiply' || btn.id === 'divide') {
+      value1[0] = display.value;
+      display.value ='';
+      value1[2] = btn.id;
+      }
+      else if (btn.id ==='equal'){
+        console.log(value1)
+        value1[1]=display.value;
+        switch(value1[2]){
+          case 'add':
+            value1[0]*= 1;
+            value1[1]*= 1;
+            value1[0]+=value1[1];
+            font();
+            break
+
+          case 'subtract':
+              value1[0]-=value1[1];
+              font();
+              break
+
+          case 'multiply':
+              value1[0]= value1[0]*value1[1];
+              font();
+              break
+
+          case 'divide':
+            
+              value1[0]= value1[0]/value1[1];
+              font();
+              break
+
+          default:
+            console.log('return')
+            font();
+              return
+        }
+
+        display.value=value1[0];
+
+      }
+
+
+      else{
+
+          display.value += keys;
+      }
+
+}
+  
 
   function NumberPress(num){
     if(display.value === '0') {
       display.value=num;
     }
-  /*  else if(btn.id === 'equal') {
-        switch {
-
-          case 'add' 
-        }
-        } */
+    
     
     else {
       display.value+=num;
-
-    }
+      
+    
     UpdateDisplay(display.value);
-  //append them update currentnumber and display.
+    }
   };
  
   for (let i = 0; i < keys.length; i++) {
